@@ -8,11 +8,13 @@
     --color-incorrect: 5;
     --color-correct: 130;
   }
+
 .container header .title{
     font-size: 50px;
     font-weight: 600;
     text-align: center;
 }
+
   body {
     --col: var(--color-neutral);
     padding: 0;
