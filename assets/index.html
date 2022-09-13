@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css" >
+  
+  <title>Quiz</title>
+</head>
+<body>    
+  <!-- container to add background color and hold questions -->
+  <div class="container">
+    <header>
+        <div class="title">Coders Quiz:</div>
+    </header>
+    <!-- holds the questions and worls with css to position them -->
+    <div id="question-box" class="hidden">
+      <div id="question"></div>
+      <div id="answer-btns" class="btn-lay">
+        <button class="btn">Answer 1</button>
+        <button class="btn">Answer 2</button>
+        <button class="btn">Answer 3</button>
+        <button class="btn">Answer 4</button>
+      </div>
+    </div>
+    
+    <div class="buttons">
+      <button id="start-btn" class="start-btn btn">Start</button>
+      <button id="next-btn" class="next-btn btn hidden">Next</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

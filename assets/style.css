@@ -1,0 +1,89 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+/* root was used to prevent rpeating lengthy commands */
+  :root {
+    --color-neutral: 180;
+    --color-incorrect: 5;
+    --color-correct: 130;
+  }
+.container header .title{
+    font-size: 50px;
+    font-weight: 600;
+    text-align: center;
+}
+  body {
+    --col: var(--color-neutral);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: hsl(var(--col), 100%, 20%);
+    font-size: 40px;
+    font-weight: 200;
+  }
+  .container {
+    width: 800px;
+    max-width: 100%;
+    background-color: rgb(88, 83, 88);
+    border-radius: 5px;
+    padding: 100px;
+    box-shadow: 0 0 10px 2px;
+  }
+  
+  body.incorrect {
+    --col: var(--color-incorrect);
+  }
+  
+  body.correct {
+    --col: var(--color-correct);
+  }
+
+
+  .btn-lay {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 15px;
+    margin: 20px 0;
+  }
+  
+  .btn {
+    --col: var(--color-neutral);
+    border: 1px solid blue;
+    background-color: purple;
+    border-radius: 5px;
+    padding: 10px 10px;
+    font-size: 25px;
+    font-weight: 150;
+    color: white;
+    outline: none;
+  }
+  
+  .btn:hover {
+    border-color: yellow;
+  }
+  
+  .btn.correct {
+    background-color: green;
+    color: gold;
+  }
+  
+  .start-btn, .next-btn {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 10px 20px;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .hidden {
+    display: none;
+  }
