@@ -1,101 +1,63 @@
 var ansBtnEl = document.getElementById('answer-btns')
 var nextBtn = document.getElementById('next-btn')
+var timer = document.getElementById('timer')
 var questionEl = document.getElementById('question')
 var startBtn = document.getElementById('start-btn')
 var questionContainer = document.getElementById('question-box')
-
+var count = 0;
+var correct = 0;
+var timer = 100
+var x = setInterval(function() {
+  // Display the result in the element with id="demo"
+  timer.innerHTML = "1"
+  console.log(timer)
+  timer--;
+  // If the count down is finished, write some text
+  if (timer < 0) {
+    clearInterval(x);
+    timer.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
 /* it is important we define these as let variables becuase if not, they cannot be redefined */
-let randoQuestions, currentQuestion
-/* event.target calls whatever we clicked on */
-function selectedAnswer(event) {
-  var selectedButton = event.target
-  /* correct varible created to check the correct varibale in questions array */
-  var correct = selectedButton.dataset.correct
-  setStatusClass(document.body, correct)
-  /* loops thought other buttons and sets class, it must be converted to an array to use the for each loop */
-  Array.from(ansBtnEl.children).forEach(button => {
-    setStatusClass(button, button.dataset.correct)
-  })
-  /* checks if we have more questions and if we are on the last question we restart the quiz and removes the hidden class */
-  if (randoQuestions.length > currentQuestion + 1) {
-    nextBtn.classList.remove('hidden')
-  } else {
-    startBtn.innerText = 'Restart'
+var populateAnswers = function(questionNum){
+  if(count === questions.length){
+    count = 0;
+    ansBtnEl.classList.add('hidden')
+    nextBtn.classList.add('hidden')
     startBtn.classList.remove('hidden')
+    questionEl.innerHTML = 'end'
   }
+  count++;
+  var questionSelect = questions[questionNum]
+  questionEl.innerHTML = questionSelect.question
+  const answerArr = ansBtnEl.children
+  for (let i = 0; i < answerArr.length; i++){
+    answerArr[i].innerHTML = questionSelect.answers[i].text
+  }
+  console.log((questionSelect.answers[1].text).toString())
 }
-
-/* this function is ran when you press start which runs the reset question command and the show question command, It is important that the reset is ran before the show or an error will occur */
-function setNextQuestion() {
-  resetQuestion()
-  showQuestion(randoQuestions[currentQuestion])
+var next = function(){
+  console.log(count, questions.length)
+  
+  populateAnswers(count)
 }
-
-function showQuestion(question) {
-  /* question.questions refers to the created question variable and accesses the question variable within that array */
-  questionEl.innerText = question.question
-  /* for each calls this function for each element in the array and gives each button text to be the answer varible*/
-  question.answers.forEach(answer => {
-    var button = document.createElement('button')
-    button.innerText = answer.text
-    /* adds the button class */
-    button.classList.add('btn')
-    if (answer.correct) {
-      button.dataset.correct = answer.correct
-    }
-    button.addEventListener('click', selectedAnswer)
-    ansBtnEl.appendChild(button)
-  })
-}
-function startGame() {
+var start = function() {
   startBtn.classList.add('hidden')
-  /* This sort functions randomly and we subtract .5 that makes it less than zero or above 0 50 percent of the time*/
-  randoQuestions = questions.sort(() => Math.random() - .5)
-currentQuestion = 0
-questionContainer.classList.remove('hidden')
-setNextQuestion()
+  ansBtnEl.classList.remove('hidden')
+  nextBtn.classList.remove('hidden')
+  questionContainer.classList.remove('hidden')
+  populateAnswers(count)
 }
-/* this makes it so the previous answers are hidden when you press the next button and whenyou press next it is then hidden when promted with the next question and answers */
-function resetQuestion() {
-  restetStatus(document.body)
-  nextBtn.classList.add('hidden')
-  /* loops through the elements and if there is a child we remove it*/
-  while (ansBtnEl.firstChild) {
-    ansBtnEl.removeChild(ansBtnEl.firstChild)
-  }
-}
-
-startBtn.addEventListener('click', startGame)
-nextBtn.addEventListener('click', () => {
-  currentQuestion++
-  setNextQuestion()
-})
-/* this is the start button function of the game that manipulates the hidden element and sorts the questions*/
-/* grabs an element and checks if this element is correct but first we must reset its status */
-function setStatusClass(element, correct) {
-  restetStatus(element)
-  /* checks of the answer is true and if it is; it is given the correct clas which changes teh background. Since a ture/false statmetn can only be true or false we can just say else since it cannot be anything else. The incorrect class makes the background red */
-  if (correct) {
-    element.classList.add('correct')
-  } else {
-    element.classList.add('incorrect')
-  }
-}
-
-function restetStatus(element) {
-  element.classList.remove('correct')
-  element.classList.remove('incorrect')
-}
-
-/* This variable contains an array with objects that are used to show questions and define answer */
+nextBtn.addEventListener('click', next)
+startBtn.addEventListener('click', start)
 var questions = [
   {
     question: 'What tag is used to define the bottom section (footer) of an HTML document?',
     answers: [
-      { text: '<footer>', correct: true },
-      { text: '<button>', correct: false },
-      { text: '<h1> to <h6>', correct: false },
-      { text: '<td>', correct: false },
+      { text: 'footer', correct: true },
+      { text: 'button', correct: false },
+      { text: 'h1 to h6', correct: false },
+      { text: 'td', correct: false }
     ]
   },
   {
